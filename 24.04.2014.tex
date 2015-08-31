@@ -1,0 +1,161 @@
+\section{Загальний випадок з обмеженнями}\marginpar{\framebox{24.04.2014}}
+\begin{eqnarray}
+&g_o(t) = \suml_{i\in I_0} c_it_1^{a_{i1}}\cdot\ldots\cdot t_m^{a_{im}}\label{tr:9:1}\\
+&g_k(t) = \suml_{i\in I_k} c_it_1^{a_{i1}}\cdot\ldots\cdot t_m^{a_{im}} \leq 1,\kfop\label{tr:9:2}\\
+&I_0 = \set{1,n_0}\\
+&I_k = \set{m_k,\ldots,n_k},\kfop
+\end{eqnarray}
+До задачі \eqref{tr:9:1}-\eqref{tr:9:2} запишемо двоїсту задачу:
+\begin{eqnarray}
+&\max v(\delta) = \prod\limits_{i=1}^n \cb{\cfrac{c_i}{\delta_i}}^{\delta_i} \prod_{k=1}^p \Lambda_k^{\Lambda_k(\delta)} (\delta)\\
+&\suml_{i\in I_0} \delta_i = 1\label{tr:9:3}\\
+&\sumion \aij \delta_i = 0\\
+&\delta_i \geq 0\label{tr:9:4}
+\end{eqnarray}
+\subsection{Зв’язок прямої та двоїстої задачі}
+\begin{enumerate}
+\item Кожному позіному відповідає двоїста змінна і навпаки: $t_m^{a_{im}} \leftrightarrow \delta_i$
+\item Для двоїстої змінної, що відповідає позіномам цільової функції прямої задачі виконується умова нормалізації.
+\item Кожному обмеженню відповідає: $g_k(t) \leq 1 \leftrightarrow \Lambda_k(\delta) = \suml_{i\in I_k} \delta_i$
+\item Кількість умов ортогональності визначається кількістю змінних прямої задачі.
+\end{enumerate}
+Задача називається \textbf{сумісною}, якщо існує хоча б одна точка, що задовольняє її обмеження.
+\begin{teor}
+Нехай пряма задача сумісна. Тобто існує точка $t'$ для якої виконується $g_k(t')\leq 1,\kfop$.
+\begin{enumerate}
+\item Тоді двоїста задача також сумісна, і існує точка $\delta^*$, для якої виконуються умови \eqref{tr:9:3}-\eqref{tr:9:4}. І в цій точці $v(\delta^\ast) = \max v(\delta)$
+\item $g(t^\ast) = v(\delta^\ast)$
+\item Якщо $\delta^\ast$ оптимальний розв’язок двоїстої задачі, то існує оптимальний розв’язок прямої задачі з компонентами, що визначаються із наступної системи.
+\begin{equation}\label{tr:9:5}
+c_it_1^{\ast,a_{i1}}\cdot t_m^{
+\ast,a_{im}} = \system{\delta_i^\ast v(\delta^\ast),i\in I_0 \\
+\cfrac{\delta_i^\ast}{\Lambda_k(\delta^\ast)},i\in I_k
+}
+\end{equation}
+\end{enumerate}
+\end{teor}
+\section{Алгоритм}
+\paragraph{Перший крок} Записуємо двоїсту задачу
+\paragraph{Другий крок} Визначаємо складність задачі як 
+\begin{equation}
+d= n-m-1
+\end{equation}
+Де, $n$ - кількість позіномів, а $m$ - кількість змінних у прямій задачі.\\
+Якщо $d=0$, то розв’язок системи єдине і йдемо на сьомий крок. \\
+В іншому випадку, йдемо на третій.
+\paragraph{Третій крок}
+Записуємо загальний розв’язок системи (15)-(16). Записуємо систему (23). 
+\paragraph{Четвертий шаг} 
+Записуємо максимізуюче рівняння, записуємо систему (39). Кількість таких рівнянь співпадає зі ступеню складності задачі. Де $\la_{k,j}$ визначається з системи (29), $\la_{k,r}$ із системи (26). Численне значення для $k_j$ визначається з системи (33). 
+\paragraph{П’ятий крок}
+Розв’язуємо систему (39) і із цієї системи визначаємо $r_j^*$.
+\paragraph{Шостий крок}
+Підставляємо $r_j^*$ в систему (23) і знаходимо оптимальний розв’язок двоїстої задачі.
+\paragraph{Сьомий крок}
+Розв’язуємо систему та з цієї системи визначаємо оптимальний розв’язок двоїстої задачі $\delta_i^\ast$.
+\paragraph{Восьмий крок}
+Підставляємо $\delta_i^\ast$ в цільову функцію двоїстої задачі і визначаємо значення цільової функції $v(\delta^\ast) = g(t^\ast)$
+\paragraph{Дев’ятий крок}
+Знаходимо оптимальний розв’язок прямої задачі за системою \eqref{tr:9:5}
+\begin{exs}
+\begin{eqnarray}
+&\min g_i(t) = 40 t_1t_2 + 20t_2t_3\\
+&g_i(t) = \cfrac15 t_1^{-1} t_2^{-\frac12}+ \cfrac35 t_2^{-1} t_3^{-\frac23} \leq 1
+\end{eqnarray}
+Кількість позиномів 4. Запишемо двоїсту задачу:
+\begin{eqnarray}
+&\max v(\delta) =\cb{\cfrac{40}{\delta_1}}^{\delta_1}\cb{\cfrac{20}{\delta_2}}^{\delta_2}\cb{\cfrac{\frac15}{\delta_3}}^{\delta_3}\cb{\cfrac{\frac35}{\delta_4}}^{\delta_4}\cdot\cb{\delta_3+\delta_4}^{\delta_3+\delta_4}\\
+&\delta_1+\delta_2=1\\
+&\delta_1 -\delta_3 =0\\
+&\delta_1 +\delta_2 - \cfrac12 \delta_3 - \delta_4 = 0\\
+&\delta_2 - \delta_4 = 0
+\end{eqnarray}
+Порахуємо складність: $d=4-3-1=0$\\
+\begin{eqnarray}
+&\delta_1^\ast = \delta_2^\ast = \delta_3^\ast = \cfrac12\\
+&\delta_4^\ast = \cfrac34
+\end{eqnarray}
+Знайдемо значення цільової функції $v(\delta^\ast) = 40 = g(t^\ast)$\\
+Складемо систему для знаходження розв’язку прямої задачі:
+\begin{eqnarray}
+&40t_1t_2 = \delta_1^\ast \cdot v(\delta^\ast) = 20\\
+&20t_2t_3 = \delta_2^\ast \cdot v(\delta^\ast) = 20\\
+&\cfrac15 t_1^{-1} t_2^{-\frac12} = \cfrac{\delta_3^\ast}{\delta_3^\ast + \delta_4^\ast}\\
+&\cfrac35 t_2^{-1} t_3^{-\frac23} = \cfrac{\delta_4^\ast}{\delta_3^\ast + \delta_4^\ast}\\
+\end{eqnarray}
+Отримали розв’язок: $t_1^\ast = \cfrac12,t_2^\ast=t_3^\ast = 1$
+\end{exs}
+\begin{eqnarray}
+&\max v(\delta) = \prod\limits_{i=1}^n \cb{\cfrac{c_i}{\delta_i}}^{\delta_i} \prod_{k=1}^p \Lambda_k^{\Lambda_k(\delta)} (\delta)\\
+&\suml_{i\in I_0} \delta_i = 1\label{tr:9:5}\\
+&\sumion \aij \delta_i = 0\\
+&\delta_i \geq 0\label{tr:9:6}
+\end{eqnarray}
+Якщо $d>0$, то загальний розв’язок системи \eqref{tr:9:5}-\eqref{tr:9:6} записується у виді:
+\begin{equation}\label{tr:9:7}
+\delta_i (r) = b_i^{(0)} \suml_{j=1}^d r_j b_j^{(j)} 
+\end{equation}
+Де $b_i^{(0)}$ вектор нормалізації записується так:
+\begin{equation}\label{tr:9:8}
+b^{(0)}  = \system{
+\suml_{i\in I_0} = 1 \\
+\sumion \aij \delta_i = 0
+}
+\end{equation}\label{tr:9:9}
+І вектори нев’язки:
+\begin{equation}
+b^{(j)} = \system{
+\suml_{i\in I_0} \delta_i'= 0\\
+\sumion \aij \delta_i' = 0
+}
+\end{equation}
+\begin{equation}\label{tr:9:10}
+\Lambda_k (r) = \suml_{i\in I_k} \delta_i(r) 
+\end{equation}
+Підставимо \eqref{tr:9:7} в \eqref{tr:9:10}
+\begin{equation}\label{tr:9:11}
+\Lambda_k(r) = \suml_{i\in I_k} b_i^{(0)} + \suml_{j=1}^d r_j \suml_{i\in I_k} b_i^{(j)}
+\end{equation}
+Введемо такі позначення:
+\begin{eqnarray}
+&\suml_{i\in I_k} b_i^{(0)} = \Lambda_k^{(0)} \label{tr:9:12}\\
+&\suml_{i\in I_k} b_i^{(j)} = \Lambda_k^{(j)} \label{tr:9:13}
+\end{eqnarray}
+Підставимо \eqref{tr:9:13},\eqref{tr:9:12} в \eqref{tr:9:11}
+\begin{equation}\label{tr:9:14}
+\Lambda_k = \Lambda_k^{(0)} + \suml_{j=1}^d r_j \Lambda_k^{(j)}
+\end{equation}
+Підставимо \eqref{tr:9:14} у цільову функцію:
+\begin{equation}\label{tr:9:15}
+v(r) = \prod\limits_{i=1}^n c_i^{ b_i^{(0)} + \suml_{j=1}^d r_j b_j^{(j)} } \prod\limits_{i=1}^n \delta_i^{-\delta_i(r)}(r) \prod_{k=1}^p \Lambda_k^{\Lambda_k(r)} (r)
+\end{equation}
+\begin{equation}
+\prod\limits_{i=1}^n c_i^{b_i^{(0)}} = k_0
+\end{equation}
+\begin{equation}
+\prod\limits_{i=1}^n c_i^{b_i^{(j)}} = k_j
+\end{equation}
+Підставимо ці позначення у вираз \eqref{tr:9:15}
+\begin{equation}
+v(r) = k_0\prod\limits_{j=1}^d k_j^{r_j}  \prod\limits_{i=1}^n \delta_i^{-\delta_i(r)}(r) \prod_{k=1}^p \Lambda_k^{\Lambda_k(r)} (r)
+\end{equation}
+Так як функція $\ln v(r)$ вогнута та монотонно зростає, то функції $\ln v(r)$ та $v(r)$ мають однакову множину масимізуючих точок. Переходимо до логарифму
+\begin{equation}\label{tr:9:16}
+\ln v(r) = \ln k_0 + \suml_{j=1}^d r_j \ln k_j  - \suml_{i=1}^n \delta_i(r)\ln\delta_i(r)  \suml_{k=1}^p \Lambda_k (r) \ln \Lambda_k(r)
+\end{equation}
+%\begin{eqnarray}
+%\end{eqnarray}
+\begin{equation}
+\dd{\ln v(r)}{r_j} = \ln k_j - \suml_{j=1}^d b_i^{(j)} \ln \delta_i(r) - \suml_{i=1}^n \dd{\delta_i(r)}{r_j} + \suml_{k=1}^p \Lambda_k^{(j)}\ln \Lambda_k(r) + \suml_{k=1}^p \dd{\Lambda_k(r)}{r_j} = 0
+\end{equation}
+Так як:
+\begin{equation}
+\suml_{i=1}^n \dd{\delta_i(r)}{r_j} = \suml_{i\in I_k} \suml_{k=1}^p \dd{\delta_i(r)}{r_j} = \suml_{k=1}^p \dd{\Lambda_k(r)}{r_j}
+\end{equation}
+\begin{equation}
+\ln k_j = \sum_{j=1}^d  b_j^{(j)} \ln \delta_i(r)- \suml_{k=1}^p \Lambda_k^{(j)} \ln \Lambda_k(r)
+\end{equation}
+Отже, отримали:
+\begin{equation}
+k_j = \prod\limits_{i=1}^n \delta_i^{b_i} (r) \prod\limits_{k=1}^p \Lambda_k^{-\Lambda_k^{(j)}}(r)
+\end{equation}

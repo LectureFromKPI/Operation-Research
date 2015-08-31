@@ -1,0 +1,403 @@
+\begin{exs}\marginpar{\framebox{20.03.2014}}
+\label{exam:pr:1}
+Задача комвіяжера на шість міст.\\
+Необхідно виконати процедуру приведення. Для цього в кожному рядку шукаємо мінімальний (позначимо його $h_i$) і віднімаємо від усіх елементів рядку.
+\begin{equation}
+c = \begin{array}{c|c|c|c|c|c|c|c}
+& 0 & 1 & 2 & 3 & 4 & 5 & h_i \\
+\hline
+0 & x & 5 & 1 & 10 & 6 & 8 &  1\\
+\hline 
+1 & 2 & x & 3 & 8 & 5 & 10 & 2 \\
+\hline
+2 & 4 & 8 & x & 6 & 4 & 9 & 4\\
+\hline
+3 & 6 & 9 & 5 & x & 3 & 7 & 3\\
+\hline
+4 & 8 & 7 & 7 & 4 & x & 6 & 4\\
+\hline
+5 & 10 & 4 & 9 & 3 & 2 & x &2\\
+\hline
+\end{array}
+\end{equation}
+Перетворуюємо стовбички, для цього в кожному шукаємо мінімальний (позначаємо його $H_j$) і потім віднімаємо від усіх елементів стовпчику.
+\begin{equation}
+C' = \begin{matrix}
+&x & 4 & 0 & 9 & 5 & 7\\
+&0 & x & 1 & 6 & 3 & 8\\
+&0 & 4 & x & 2 & 0 & 5\\
+&3 & 6 & 2 & x & 0 & 4\\
+&4 & 3 & 3 & 0 & x & 2\\
+&8 & 2 & 7 & 1 & 0 & x\\
+\hline
+H_j &0 & 2 & 0 & 0 & 0 & 2
+\end{matrix}
+\end{equation}
+Далі шукаємо оцінки $\al_r$ - це наступний найменший після мінімального у рядку, а $\beta_m$ - наступний найменший після мінімального у стовпчику.
+\begin{equation}
+C_0 =\left( \begin{array}{c|ccccccc|c}
+  & 0 & 1 & 2 & 3 & 4 & 5 & \al_i\\
+\hline
+0&x & 2 & 0 & 9 & 5 & 5 & 2\\
+1&0 & x & 1 & 6 & 3 & 6 & 1\\
+2&0 & 2 & x & 2 & 0 & 3 & 0\\
+3&3 & 4 & 2 & x & 0 & 2 & 2\\
+4&4 & 1 & 4 & 0 & x & 0 & 0\\
+5&8 & 0 & 7 & 1 & 0 & x & 0\\
+\hline 
+\beta_j &0 & 1 & 1 & 1 & 0 & 2 &
+\end{array}\right)
+\end{equation}
+Отримали оцінку: $G_0\cb{\xi} = \suml_{i} h_i + \suml_{j} H_j = 20$. Далі, обчислюємо оцінки для нульових елементів за формулою
+\begin{equation}
+	\cij:\quad \Theta\cb{\cij} = \al_i + \beta_j
+\end{equation}
+І розбиваємо по тому елементу, де $\max\Theta$. Це елемент (0,2), $\Theta_{0,2} = 3$.\\
+Розбиваємо множину на підмножини:\\
+\begin{center}
+\begin{tikzpicture}
+\node[circle,draw] (c1) {$G_0$};
+\node[circle,draw,below left=of c1] (c11) {$G_1$};
+\node[circle,draw,below right=of c1] (c12) {$G_2$};
+\path[-]
+(c1) edge node[above,rotate=45]{(0,2)}(c11)
+(c1) edge node[above,rotate=-45]{$\overline{(0,2)}$}(c12)
+;
+\end{tikzpicture}
+\end{center}
+Отримали оцінку для другої підмножини $G_2(\xi)=G_0\cb{\xi} + \Theta_{0,2} = 23$. Отже, має йти на $G_1$.\\
+Викреслимо другий стовпчик та нульовий рядок (як у переході), забороняємо перехід (2,0) та отримаємо таку матрицю:
+\begin{equation}
+C_1' = \begin{array}{c|ccccc|c|c|}
+  & 0 & 1 & 3 & 4 & 5 & h_i & \al_r\\
+\hline
+1 & 0 & x & 0 & 3 & 0 & 0 & 3 \\
+2 & x & 2 & 2 & 0 & 3 & 0 & 2\\
+3 & 3 & 3 & x & 0 & 2 & 0 & 2\\
+4 & 4 & 1 & 0 & x & 0 & 0 & 0\\
+5 & 8 & 0 & 1 & 0 & x & 0 & 0\\
+\hline
+H_j & 0 & 0 & 0 & 0 & 0  \\
+\cline{1-6}
+\beta_m & 3 & 1 & 1 & 0 & 2 
+\end{array}
+\end{equation}
+Знайдемо оцінку $G_1\cb{\xi}$ за формулою:
+\begin{equation}
+	G_1^2\cb{\xi} = G_0\cb{\xi} + \suml_{i} h_i + \suml_{j} H_j = 20
+\end{equation}
+Розіб’ємо підмножину за таким самим алгоритмом. $\Theta_{1,0} = 6$:
+\begin{center}
+\begin{tikzpicture}
+\node[circle,draw] (c1) {$G_0$};
+\node[circle,draw,below left=of c1] (c11) {$G_1'$};
+\node[circle,draw,below right=of c1] (c12) {$G_2'$};
+\node[circle,draw,below left=of c11] (c111) {$G_1^2$};
+\node[circle,draw,below right=of c11] (c112) {$G_2^2$};
+\path[-]
+(c1) edge node[above,rotate=45]{(0,2)}(c11)
+(c1) edge node[above,rotate=-45]{$\overline{(0,2)}$}(c12)
+(c11) edge node[above,rotate=45]{(1,0)}(c111)
+(c11) edge node[above,rotate=-45]{$\overline{(1,0)}$}(c112)
+;
+\end{tikzpicture}
+\end{center}
+Отримали оцінку : $G_2^2\cb{\xi} = G_1\cb{\xi} + \Theta_{1,0} = 26$.\\
+Знову викреслюємо стовпчик і рядок за переходом (1,0). Також забороняємо перехід (2,1), оскільки він є транзитивним для $(2,0)\to(0,1)$.
+\begin{equation}
+C_1^2 = \begin{array}{c|cccc|c|c|}
+&1 & 3 & 4 & 5 & h_i & \al_r\\
+\hline
+2 & x & 2 & 0 & 3 & 0 & 2\\
+3 & 4 & x & 0 & 2 & 0 & 2\\
+4 & 1 & 0 & x & 0 & 0 & 0\\
+5 & 0 & 1 & 0 & x & 0 & 0\\
+\hline
+H_j & 0 & 0 & 0 & 0\\
+\cline{1-5}
+\beta_m & 1 & 1 & 0 & 2
+\end{array}
+\end{equation}
+Отже, $G_1^2\cb{\xi}=G_1\cb{\xi} + \suml_i h_j + \suml_j H_j = 20$.\\
+Знайдемо нове розбиття. $\Theta_{2,4} = \Theta_{3,4} = \Theta_{4,5} = 2$. Немає різниці, яку обирати, тому оберемо (2,4).\\
+\begin{center}
+\begin{tikzpicture}
+\node[circle,draw] (c1) {$G_0$};
+\node[circle,draw,below left=of c1] (c11) {$G_1'$};
+\node[circle,draw,below right=of c1] (c12) {$G_2'$};
+\node[circle,draw,below left=of c11] (c111) {$G_1^2$};
+\node[circle,draw,below right=of c11] (c112) {$G_2^2$};
+\node[circle,draw,below left=of c111] (c1111) {$G_1^3$};
+\node[circle,draw,below right=of c111] (c1112) {$G_2^3$};
+\path[-]
+(c1) edge node[above,rotate=45]{(0,2)}(c11)
+(c1) edge node[above,rotate=-45]{$\overline{(0,2)}$}(c12)
+(c11) edge node[above,rotate=45]{(1,0)}(c111)
+(c11) edge node[above,rotate=-45]{$\overline{(1,0)}$}(c112)
+(c111) edge node[above,rotate=45]{(2,4)}(c1111)
+(c111) edge node[above,rotate=-45]{$\overline{(2,4)}$}(c1112)
+;
+\end{tikzpicture}
+\end{center}
+Отримали оцінку $G_2^3\cb{\xi} = G_1^2\cb{\xi} + \Theta_{2,4} = 22$\\
+Знову викреслюємо рядок і стовпчик за переходом (2,4) та забороняємо (4,1) як транзитивний від $(4,2)\to(2,1)$.
+\begin{equation}
+C_1^3=\begin{array}{c|ccc|c}
+ & 1 & 3 & 5 & h_i\\
+\hline
+3 & 4 & x & 2 & 2\\
+4 & x & 0 & 0 & 0\\
+5 & 0 & 1 & x & 0 
+\end{array}
+\end{equation}
+Віднімаємо двійку та отримуємо:
+\begin{equation}
+C_1^3=\begin{array}{c|ccc|c|c|}
+ & 1 & 3 & 5 & h_i & \al_i\\
+\hline
+3 & 2 & x & 0 & 2 & 2\\
+4 & x & 0 & 0 & 0 & 0\\
+5 & 0 & 1 & x & 0 & 1\\
+\hline
+H_J & 0 & 0 & 0 \\
+\cline{1-4}
+\beta_j & 2 & 1 & 0
+\end{array}
+\end{equation}
+Отже, $G_1^3\cb{\xi} = G_1^2\cb{\xi} + \suml_{i} h_i + \suml_{j} H_j = 20 + 2 = 22$\\
+Оскільки оцінки у обох варіантах однакові, оберемо $G_2^3$ та розберемося з тим, що відбувається, коли ми заперечуємо перехід.\\
+Розглянемо гілку $G_2^3$ та побудуємо для неї матрицю. Для цього просто забороняємо перехід $(2,4)$.:
+\begin{equation}
+C^3_2 = \begin{array}{c|cccc|c}
+  & 1 & 3 & 4 & 5 & h_i\\
+\hline
+2 & x & 2 & x & 3 & 2\\
+3 & 4 & x & 0 & 2 & 0\\
+4 & 1 & 0 & x & 0 & 0\\
+5 & 0 & 1 & 0 & x & 0\\
+\hline
+\end{array}
+\end{equation}
+Після віднімання:
+\begin{equation}
+C^3_2 = \begin{array}{c|cccc|c|c}
+  & 1 & 3 & 4 & 5 & h_i & \al_r\\
+\hline
+2 & x & 0 & x & 1 & 2 & 1\\
+3 & 4 & x & 0 & 2 & 0 & 2\\
+4 & 1 & 0 & x & 0 & 0 & 0\\
+5 & 0 & 1 & 0 & x & 0 & 0 \\
+\hline
+H_j & 0 & 0 & 0 & 0\\
+\cline{1-5}
+\beta_m & 1 & 0 & 0 & 1
+\end{array}
+\end{equation}
+Знаходимо перехід. $\Theta_{3,4}=\Theta_{5,4} = 2$
+\begin{center}
+\begin{tikzpicture}
+\node[circle,draw] (c1) {$G_0$};
+\node[circle,draw,below left=of c1] (c11) {$G_1'$};
+\node[circle,draw,below right=of c1] (c12) {$G_2'$};
+\node[circle,draw,below left=of c11] (c111) {$G_1^2$};
+\node[circle,draw,below right=of c11] (c112) {$G_2^2$};
+\node[circle,draw,below left=of c111] (c1111) {$G_1^3$};
+\node[circle,draw,below right=of c111] (c1112) {$G_2^3$};
+\node[circle,draw,below left=of c1112] (c11121) {$G_1^4$};
+\node[circle,draw,below right=of c1112] (c11122) {$G_2^4$};
+\path[-]
+(c1) edge node[above,rotate=45]{(0,2)}(c11)
+(c1) edge node[above,rotate=-45]{$\overline{(0,2)}$}(c12)
+(c11) edge node[above,rotate=45]{(1,0)}(c111)
+(c11) edge node[above,rotate=-45]{$\overline{(1,0)}$}(c112)
+(c111) edge node[above,rotate=45]{(2,4)}(c1111)
+(c111) edge node[above,rotate=-45]{$\overline{(2,4)}$}(c1112)
+(c1112) edge node[above,rotate=45]{(3,4)}(c11121)
+(c1112) edge node[above,rotate=-45]{$\overline{(3,4)}$}(c11122)
+;
+\end{tikzpicture}
+\end{center}
+Розглянемо перехід $G_1^4$ та побудуємо для нього матрицю:
+\begin{equation}
+C_1^4 =  \begin{array} {c|ccc|c|c}
+  & 1 & 3 & 5 & h_i & \al_r\\
+\hline
+2 & x & 0 & 1 & 0 & 1\\
+4 & 1 & x & 0 & 0 & 1\\
+5 & 0 & 1 & x & 0 & 1\\
+\hline
+H_j & 0 & 0 & 0 \\
+\cline{1-4}
+\beta_m & 1 & 1 & 1
+\end{array}
+\end{equation}
+Оцінка вийшла $G_1^4\cb{\xi} = G_2^3\cb{\xi} + \suml_i h_i + \suml_j H_j =  22$\\
+Знайдемо перехід. $\Theta_{2,3}=\Theta_{4,5} = \Theta_{5,1} = 2$
+\begin{center}
+\begin{tikzpicture}
+\node[circle,draw] (c1) {$G_0$};
+\node[circle,draw,below left=of c1] (c11) {$G_1'$};
+\node[circle,draw,below right=of c1] (c12) {$G_2'$};
+\node[circle,draw,below left=of c11] (c111) {$G_1^2$};
+\node[circle,draw,below right=of c11] (c112) {$G_2^2$};
+\node[circle,draw,below left=of c111] (c1111) {$G_1^3$};
+\node[circle,draw,below right=of c111] (c1112) {$G_2^3$};
+\node[circle,draw,below left=of c1112] (c11121) {$G_1^4$};
+\node[circle,draw,below right=of c1112] (c11122) {$G_2^4$};
+\node[circle,draw,below left=of c11121] (c111211) {$G_1^5$};
+\node[circle,draw,below right=of c11121] (c111212) {$G_2^5$};
+\path[-]
+(c1) edge node[above,rotate=45]{(0,2)}(c11)
+(c1) edge node[above,rotate=-45]{$\overline{(0,2)}$}(c12)
+(c11) edge node[above,rotate=45]{(1,0)}(c111)
+(c11) edge node[above,rotate=-45]{$\overline{(1,0)}$}(c112)
+(c111) edge node[above,rotate=45]{(2,4)}(c1111)
+(c111) edge node[above,rotate=-45]{$\overline{(2,4)}$}(c1112)
+(c1112) edge node[above,rotate=45]{(3,4)}(c11121)
+(c1112) edge node[above,rotate=-45]{$\overline{(3,4)}$}(c11122)
+(c11121) edge node[above,rotate=45]{(2,3)}(c111211)
+(c11121) edge node[above,rotate=-45]{$\overline{(2,3)}$}(c111212)
+;
+\end{tikzpicture}
+\end{center}
+Отримали оцінку $G_2^5\cb{\xi}=G_1^4 + \Theta_{2,3} = 24$.\\
+Розглянемо матрицю для $G_1^5$
+\begin{equation}
+C_1^5=\begin{array}{c|cc|c}
+  & 1 & 5 & h_i\\
+\hline
+4 & x & 0 & 0\\
+5 & 0 & x & 0 \\
+\hline
+H_j & 0 & 0
+\end{array}
+\end{equation}
+Отримали оцінку $G_1^5\cb{\xi}=G_1^4\cb{\xi} + \suml_i h_i + \suml_{j} H_j = 22$. Отже, ми знайшли оптимальний шлях, оскільки далі є лише ті переходи, які потрібні для завершення шляху:
+\begin{center}
+\begin{tikzpicture}
+\node[circle,draw] (c1) {$G_0$};
+\node[circle,draw,below left=of c1] (c11) {$G_1'$};
+\node[circle,draw,below right=of c1] (c12) {$G_2'$};
+\node[circle,draw,below left=of c11] (c111) {$G_1^2$};
+\node[circle,draw,below right=of c11] (c112) {$G_2^2$};
+\node[circle,draw,below left=of c111] (c1111) {$G_1^3$};
+\node[circle,draw,below right=of c111] (c1112) {$G_2^3$};
+\node[circle,draw,below left=of c1112] (c11121) {$G_1^4$};
+\node[circle,draw,below right=of c1112] (c11122) {$G_2^4$};
+\node[circle,draw,below left=of c11121] (c111211) {$G_1^5$};
+\node[circle,draw,below right=of c11121] (c111212) {$G_2^5$};
+\node[circle,draw,left=of c111211] (c5) {$G_1^6$};
+\node[circle,draw,left=of c5] (c6) {$G_1^7$};
+\path[-]
+(c1) edge node[above,rotate=45]{(0,2)}(c11)
+(c1) edge node[above,rotate=-45]{$\overline{(0,2)}$}(c12)
+(c11) edge node[above,rotate=45]{(1,0)}(c111)
+(c11) edge node[above,rotate=-45]{$\overline{(1,0)}$}(c112)
+(c111) edge node[above,rotate=45]{(2,4)}(c1111)
+(c111) edge node[above,rotate=-45]{$\overline{(2,4)}$}(c1112)
+(c1112) edge node[above,rotate=45]{(3,4)}(c11121)
+(c1112) edge node[above,rotate=-45]{$\overline{(3,4)}$}(c11122)
+(c11121) edge node[above,rotate=45]{(2,3)}(c111211)
+(c11121) edge node[above,rotate=-45]{$\overline{(2,3)}$}(c111212)
+(c111211) edge node[above]{(4,5)} (c5)
+(c5) edge node[above]{(5,1)} (c6)
+;
+\end{tikzpicture}
+\end{center}
+Намалюємо графік руху:
+\begin{center}
+\begin{tikzpicture}
+\node (c0) {0};
+\node[right=of c0] (c2) {2};
+\node[below=of c2] (c3) {3};
+\node[below left=of c3] (c4) {4};
+\node[above left=of c4] (c5) {5};
+\node[above=of c5] (c1) {1};
+\path[->]
+(c0) edge node[above]{1} (c2)
+(c2) edge node[right]{6} (c3)
+(c3) edge node[below right]{3} (c4)
+(c4) edge node[below left]{6} (c5)
+(c5) edge node[left]{4} (c1)
+(c1) edge node[above]{2} (c0)
+;
+\end{tikzpicture}
+\end{center}
+\end{exs}
+\section{Метод послідовного аналізу та відсів варіантів}
+Ідея методу: розв’язується задача дискретної оптимізації і на етапі побудови дерева варіантів відкидаються недопустимі варіанти або неефективні з точки зору цільової функції. Для цього будуються дві процедури відсіву $\omg_1$ - відсів за обмеженнями, а \nomg2 - відсів по значенням цільової функції. 
+\begin{eqnarray}
+&\min f\\
+&g_p(x) \leq g_p^\ast, &\pfoq\\
+&g_p(x) \geq g_p^\ast, &\pfrm{q+1}Q\\
+&x\in \mX
+\end{eqnarray}
+Нехай $x^p$ забезпечує оптимум при фіксованому $x_j=x_{j_{k_j}}$. 
+\subsection{Процедура \nomg1}
+\begin{eqnarray}
+&g_p\cb{x^p|x_j=x_{j_{k_j}}} > g_p^\ast,&\pfoq\label{tr:6:1}\\
+&g_p\cb{x^p|x_j=x_{j_{k_j}}}  \geq g_p^\ast,& \pfrm{q+1}Q\label{tr:6:2}
+\end{eqnarray}
+Використовуючи процедури відсіву \eqref{tr:6:1} та \eqref{tr:6:2} виконуємо процедуру \nomg1 для всіх обмежень та для всіх змінних. Використовуємо процедуру \nomg1 до того часу, поки відсів не закічиться. Множину варіантів, що залишилася позначимо як $\mX(l)$.
+\begin{tver}
+Якщо при двох послідовних використань процедури \nomg1 множина точок оптимуму не змінюється, використання процедури \nomg1 закінчується
+\end{tver}
+\begin{tver}
+Допустима множина при використанні процедури \nomg1 не зменшується.
+\end{tver}
+При використанні процедури \nomg1 до початкової множини можливі наступні випадки:
+\begin{itemize}
+\item $\mX(l)=\emptyset$ : задача нерозв’язна.
+\item $\mX(l)\neq\emptyset$ в цьому випадку йдемо на процедуру \nomg2
+\end{itemize}
+\subsection{Процедура \nomg2}
+Будуємо допоміжну задачу.
+\begin{eqnarray}
+\min f(x)\\
+f(x) \leq f_1^\ast\\
+x\in\mX(l)
+\end{eqnarray}
+Де, $f_1^\ast$ - це порог відсіву, який визначається так:
+\begin{equation}
+f_1^* = \cfrac12\cb{\min\limits_{x\in\mX(l)} f(x) + \max\limits_{x\in\mX(l)} f(x)}
+\end{equation}
+Нехай $x^p$ забезпечує оптимум функції $f(x)$ при фіксованому $x_j=x_{j_{k_j}}$. Записуємо умову оцінки
+\begin{equation}\label{tr:6:3}
+f\cb{x^p|x_j=x_{j_{k_j}}} > f_1^\ast
+\end{equation}
+Тобто $x_{j_{k_j}}$ відсівається, якщо виконується умова \eqref{tr:6:3}. Виконуємо процедуру \nomg2 для всіх змінних. Якщо відсів стався, переходимо на процедуру \nomg1. В іншому випадку необхідно ввести новий поріг:
+\begin{equation}
+f_2^\ast = \cfrac12\cb{f_1^* + \min\limits_{x\in\mX(l)} f(x)}
+\end{equation}
+Виконуємо процедуру \nomg2 з новим порогом і, якщо відсів відбувся, йдемо на процедуру \nomg1. Якщо відсіву знову не відбулося, то збільшуємо поріг.\\
+Якщо після використання процедури \nomg1 множина варіантів, що залишилася, порожня, необхідно перейти на процедуру \nomg2 і розширити множину варіантів. Для цього вводимо новий поріг:
+\begin{equation}
+f_3^\ast = \cfrac12\cb{f_2^\ast + \max\limits_{x\in\mX(l)} f(x)}
+\end{equation}
+Використовуємо процедури \nomg1 та \nomg2 багатократно до того часу, поки не буде знайдемо оптимальний розв’язок. При чому, на k-тому кроку відсів відбувається за умовою:
+\begin{eqnarray}
+f\cb{x^p|x_j=x_{j_{k_j}}} > f_k^\ast
+\end{eqnarray}
+Де $f_k^\ast$ - поріг відсіву
+\begin{equation}
+f_k^\ast = \system{\cfrac12\cb{f_{k-1}^\ast +\max\limits_{x\in\mX(l)} f(x)},& \mX(l)\uparrow \\
+\cfrac12\cb{f_{k-1}^\ast +\min\limits_{x\in\mX(l)} f(x)},& \mX(l)\downarrow\\
+\cfrac12\cb{f_{k-1}^\ast + f_{k-2}^\ast},&\mX(l)\uparrow after\mX(l)\downarrow or~reverse
+}
+\end{equation}
+\section{Метод послідовного відсіву варіантів цілого програмування}
+Запишемо модель:
+\begin{eqnarray}
+&\max \sumjon \cj\xj &\\
+&\sumjon \aij \xj \leq \bi,&\ifom\\
+&\xj\geq 0,&\jfon\label{tr:6:4}\\
+&x_j\in\mZ\label{tr:6:5}&
+\end{eqnarray}
+Для кожної змінної визначаємо найменше і найнижче значення. Умови \eqref{tr:6:4} та \eqref{tr:6:5} у загальному виді:
+\begin{equation}
+0 \leq d_j^{(1)} \leq \xj \leq d_j^{(2)}
+\end{equation}
+$d_j^{(1)}=0$ - нижня границя, а верхня границя визначається як:
+\begin{equation}
+d_j^{(2)} = \min\set{\bb{\cfrac{b_i}{\aij}}_{\aij>0}},a_{ik}\geq0
+\end{equation}

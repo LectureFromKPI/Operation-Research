@@ -1,0 +1,88 @@
+\section{Практика} \marginpar{\framebox{24.04.2014}}
+\begin{tsk}
+\begin{eqnarray}
+&\max x_1 +2x_2 -x_1^2-x_2^2\\
+&x_1 + 2x_2 \leq 16\\
+&x_1+x_2=8\\
+&x_1,x_2\leq 0
+\end{eqnarray}
+Приведемо до канонічного виду:
+\begin{eqnarray}
+&-x_1 -2x_1 +16 \geq 0\\
+&x_1+x_2-8=0\\
+&\la_1>0
+\end{eqnarray}
+Введемо функцію Лапласа
+\begin{equation}
+L(x,\Lambda) = f(x) + \la_1(-x_1-2x_2+16) + \la_2(x_1+x_2-8)
+\end{equation}
+Перевіримо на знаковизначеність:
+\begin{eqnarray}
+&\Delta_1 = f_{11} = \dddd{f}{x_1} = -2 <0\\
+&\Delta_2 = \begin{vmatrix}
+-2 & 0 \\
+0 & -2
+\end{vmatrix} = 4 > 0
+\end{eqnarray}
+Отже, вона від’ємновизначена.
+\begin{eqnarray}
+&\dd L{x_1} = 1 - 2 x_1- - \la_1 + \la_2 \leq 0 \\
+&\dd L{x_2} = 2 - 2x_2 -2\la_1 +\la_2 \leq 0\\
+&\dd L{x_1}\cdot x_1 = 0\\
+&\dd L{x_2} \cdot x_2 = 0\\
+&\dd L{\la_1} = -x_1 - 2x+2 +16 \geq 0 \\
+&\dd L{\la_1} \cdot \la_1 = 0 \\
+&\dd L{\la_2} = x_1 +x_2 - 8 = 0
+\end{eqnarray}
+Отримаємо таку систему:
+\begin{eqnarray}
+&2x_1 +\la_1 - \la_2 -v_1 = 1\\
+&2x_2 + 2\la_1 - \la_2 -x_2 = 2\\
+&x_1 + 2x_2 +w_1 = 16\\
+&x_1 + x_2 =8\\
+&x_1v_1 =0\\
+&x_2 v_2 =0 \\
+&\la_1w_1 =0\\
+\end{eqnarray}
+Оскільки на $\la_2$ немає обмежень у знаку, запишемо $\la_2 = \la_3 - \la_4,\la_3,\la_4\geq0$.\\
+Перепишемо систему:\\
+\begin{eqnarray}
+&2x_1 +\la_1 - \la_3+\la_4 -v_1 = 1\\
+&2x_2 + 2\la_1 - \la_3 + \la_4 -x_2 = 2\\
+&x_1 + 2x_2 +w_1 = 16\\
+&x_1 + x_2 =8\\
+&x_1v_1 =0\\
+&x_2 v_2 =0 \\
+&\la_1w_1 =0\\
+\end{eqnarray}
+А далі це розв’язуємо через симплекс-таблицю.\\
+Або через метод перебору.\\
+Подумаємо з:
+\begin{eqnarray}
+&\dd L{x_1} = 1 - 2 x_1- - \la_1 + \la_2 \leq 0 \\
+&\dd L{x_2} = 2 - 2x_2 -2\la_1 +\la_2 \leq 0\\
+&\dd L{x_1}\cdot x_1 = 0\\
+&\dd L{x_2} \cdot x_2 = 0\\
+&\dd L{\la_1} = -x_1 - 2x+2 +16 \geq 0 \\
+&\dd L{\la_1} \cdot \la_1 = 0 \\
+&\dd L{\la_2} = x_1 +x_2 - 8 = 0
+\end{eqnarray}
+
+З цього можна отримати систему:
+\begin{eqnarray}
+&x_1,x_2,\la_1\neq 0\\
+&-2x_1 -\la_1+\la_2 = -1 \\
+&2x_2 + 2\la_1 -\la_2 = 2\\
+&x_1+2x_2 = 16\\
+&x_1+x_2 = 8
+\end{eqnarray}
+Отримали: $\la_1=-15$. Отже, нехай $\la_1 =0,x_1,x_2\neq 0$
+\begin{eqnarray}
+&-2x_1+\la_2 = -1 \\
+&2x_2 -\la_2 = 2\\
+&x_1+2x_2 = 16\\
+&x_1+x_2 = 8
+\end{eqnarray}
+Отримали з цієї системи: $x_2 = \cfrac{17}4,x_1 = \cfrac{15}{2}$
+
+\end{tsk}

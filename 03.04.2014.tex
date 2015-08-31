@@ -1,0 +1,252 @@
+%де це потрібно, понатикати ^*
+\chapter{Нелінійне програмування}\marginpar{\framebox{03.04.2014}}
+\begin{eqnarray}
+&\max f(x_1,\ldots,x_n)\\
+&g_i(x_1,\ldots,x_n)\geq0,\ifom
+\end{eqnarray}
+І одна з цих функцій нелінійна. Тобто, або критерій, або хоча б одне з обмежень.\\
+\begin{teor}
+Якщо $f(x)$ - неперервна функція, що задана на допустимій множині $R(x)$. То функція $f(x)$ на цій множині досягає свого максимуму (мінімуму) в одній або кількох точках, що належать одній з наступних множин: 
+\begin{itemize}
+\item Множина стаціонарних точок - $S_1$;
+\item Множина точок границі - $S_2$;
+\end{itemize}
+\end{teor}
+Нехай $f(x)$ задана на множині $R(x)$, функція $f(x)$ називається \textbf{випуклою вгору функцією}, якщо 
+\begin{equation}
+\forall x_1,x_1\in R(x);\exists 0<k<1: f\cb{kx_1+(1-k)x_2} \geq kf(x_1)+(1-k) f(x_2)
+\end{equation}
+Нехай $f(x)$ задана на множині $R(x)$, функція $f(x)$ називається \textbf{випуклою вниз функцією}, якщо 
+\begin{equation}
+x_1,x_1\in R(x);0<k<1: f\cb{kx_1+(1-k)x_2} \leq kf(x_1)+(1-k) f(x_2)
+\end{equation}
+В стаціонарній точці $x_0$ функція досягає свого максимуму (мінімум), якщо в околиці цієї точки функція випукла вниз (випукла вверх).\\
+Нехай $f(x)$ неперервна функція і має не менше як другу похідну. Позначимо $f_{ij}(x_0) = \left.\dddtd {f(x)}{x_i}{x_j}\right|_{x=x_0}$\\
+функція строго випукла вниз, якщо:
+\begin{equation*}
+\Delta_1 = f_{11} <0; \Delta_2 = \begin{vmatrix}
+f_{11} & f_{12} \\ f_{21} & f_{22}>0
+\end{vmatrix}
+\end{equation*}
+Функція строго випукла вверх, якщо:
+\begin{equation*}
+\Delta_1 = f_{11} >0; \Delta_2 = \begin{vmatrix}
+f_{11} & f_{12} \\ f_{21} & f_{22}>0
+\end{vmatrix}
+\end{equation*}
+\section{Метод множників Лагранджа}
+Метод множників Лагранджа допомагає знайти мінімум або максимум функції при обмежені рівності:
+\begin{eqnarray}
+&\min f(x)\label{tr:7:1} \\
+&h_i(x) = 0,\ifom\label{tr:7:2}
+\end{eqnarray}
+Вводимо $\la_1,\ldots,\la_m$. Кількість змінних співпадає з кількістю обмежень та ці множники є \textbf{множниками Лагрнаджа}. Вони знаконевизначенні.
+\begin{equation}
+L\cb{X,\Lambda} = f(x) + \suml_{i=1}^m \la_i h_i (x) 
+\end{equation}
+$x_0$ є розв’язком задачі \eqref{tr:7:1}-\eqref{tr:7:2} якщо $\exists\Lambda_0:$
+\begin{eqnarray}
+\dd{L\cb{x_0,\Lambda_0}}{x_j} &=& 0\label{tr:7:4}\\
+\dd{L\cb{x_0,\Lambda_0}}{\la_i} &=&0 \label{tr:7:3}
+\end{eqnarray}
+Умова \eqref{tr:7:3} отримується з обмежень. Залишилося довести умову \eqref{tr:7:4}.\\
+Доведемо для випадку трьох змінних та двух обмежень:
+\begin{eqnarray}
+&\min f(x_1,x_2,x_3)\\
+&h_1(x_1,x_2,x_3) =0\\
+&h_2(x_1,x_2,x_3)=0
+\end{eqnarray}
+Нехай $x_1$ точка мінімуму. І в цій точці градієнти обмежень лінійнонезалежні.\\
+Нехай ми виразили $x_2=u(x_1)$ та $x_3= v(x_1)$. Знайдемо частинні похідні в цій точці 
+%склеїти нумерацію
+\begin{equation}\label{tr:7:5}
+\system{
+\cdcd{f}{x_1} = \dd f{x_1} + \dd f{x_2} \cdot \cdcd u{x_1} + \dd f{x_3}\cdot \cdcd v{x_1} =0 \\
+\cdcd {h_1}{x_1} = \dd {h_1}{x_1} + \dd {h_1}{x_2} \cdot \cdcd u{x_1} + \dd {h_1}{x_3}\cdot \cdcd v{x_1} = 0\\
+\cdcd {h_1}{x_1} = \dd {h_2}{x_1} + \dd {h_2}{x_2} \cdot \cdcd u{x_1} + \dd {h_2}{x_3}\cdot \cdcd v{x_1} = 0
+}
+\end{equation}
+Перепишемо систему \eqref{tr:7:5} у такому вигляді:
+\begin{equation}
+\begin{vmatrix}
+\dd f{x_1} & \dd f{x_2} & \dd f{x_3} \\
+\dd {h_1}{x_1} & \dd {h_1}{x_2} & \dd {h_1}{x_3} \\
+\dd {h_2}{x_1} & \dd {h_2}{x_2} & \dd {h_2}{x_3} 
+\end{vmatrix}\cdot \begin{vmatrix}
+1\\
+\cdcd u{x_1} \\
+\cdcd v{x_1}
+\end{vmatrix} = 0
+\end{equation}
+Оскільки вектор не рівний нулю, то рядки матриці лінійнозалежні, тобто:\\
+$a,b,c\neq 0:$\\
+\begin{equation}
+a\triangledown f(x^\ast) + b \triangledown h_1(x^\ast) + c \triangledown h_2(x^\ast) =0
+\end{equation}
+$a\neq0$:
+\begin{equation}
+a=0\Rightarrow b\triangledown h_1(x^\ast) + c \triangledown h_2(x^\ast) =0
+\end{equation}
+А це протиріччя з тим, що їх градієнти лінійнонезалежні.
+\begin{equation}
+\triangledown f(x^\ast) + \cfrac ba \triangledown h_1(x^\ast) + \cfrac ca \triangledown h_2(x^\ast) = 0
+\end{equation}
+Перепозначивши константи ми доведемо умову \eqref{tr:7:4}
+\begin{equation}
+\triangledown f(x^\ast) + \la_1 \triangledown h_1(x^\ast) + \la_2 \triangledown h_2(x^\ast) = 0
+\end{equation}
+\begin{eqnarray*}
+\dd L{x_1} = \dd f{x_1} + \la_1 \dd {h_1}{x_1} + \la_2 \dd {h_2}{x_1} = 0\\
+\dd L{x_2} = \dd f{x_2} + \la_1 \dd {h_1}{x_2} + \la_2 \dd {h_2}{x_2} = 0\\
+\dd L{x_3} = \dd f{x_3} + \la_1 \dd {h_1}{x_3} + \la_2 \dd {h_2}{x_3} = 0
+\end{eqnarray*}
+\section{Теорема Куно-Таккера}
+Нехай задана наступна задача нелійнійного програмування
+\begin{eqnarray}
+&\min f_(x)\label{tr:7:27}\\
+&g_i(x)\leq 0,\ifom\label{tr:7:28}
+\end{eqnarray}
+І нехай $x^\ast$ - точка мінімуму функції $f(x)$. І в цій точці градієнти обмежень лінійнонезалежні. Тоді існує такий вектор $\exists \Lambda^\ast\geq 0$, що виконуються наступні умови:
+\begin{eqnarray}
+\triangledown f(x^\ast) + \suml_{i=1}^m \la_i^\ast \triangledown g_i(x^\ast) = 0\label{tr:7:26}\\
+\suml_{i=1}^m \la_i^\ast g_i(x^\ast) = 0\label{tr:7:6}
+\end{eqnarray}
+Умова \eqref{tr:7:6} це умова доповнюючою нежорсткості.
+\begin{proof}
+Позначимо через $I=\set{i:g_i(x)=0}$. Розкладемо $f(x^\ast+tz)$ в ряд Тейлора, $z$ - вектор в околиці $x^\ast$, $t$ - малий скаляр.
+\begin{equation}
+	f(x^\ast+tz) = f(x^\ast) + t\mt{\bigtriangledown f(x^\ast) z} + \Theta
+\end{equation}
+Аналогічно для активних обмежень:
+\begin{equation}
+	g_i(x^\ast+tz) = g_i(x^\ast) + t \mt{\bigtriangledown g_i(x^\ast)} z + \Theta
+\end{equation}
+Помітно, що система 
+\begin{equation}\label{tr:7:29}
+	\system{\mt{\bigtriangledown f(x^\ast)} z < 0 \\ \mt{\bigtriangledown g(x^\ast)} z \leq 0 }
+\end{equation}
+не виконується завдяки умові на точки $x^*$. 
+\end{proof}
+\begin{teor}[Лема Фарташа]
+Для будь-якої матриці $A$ виконується одна з умов: 
+\begin{equation}
+	AX < 0 
+\end{equation}
+\begin{equation}
+	\mt\Lambda A = 0
+\end{equation}
+Одночасно вони виконуватися не можуть.
+\end{teor}
+\begin{proof}[Продовжуємо доведення теореми]
+Розглянемо таку матрицю:
+\begin{equation}
+	A = \begin{vmatrix}
+		\bigtriangledown f(x^\ast) \\ \bigtriangledown g_i(x^\ast),i\in I
+	\end{vmatrix}
+\end{equation}
+Тоді, використовуючи лему Фарташа $\exists \Lambda^\ast = \set{\la^\ast_0,\la^\ast_i}\geq 0$ така, що
+\begin{equation}
+	\la^\ast_0 
+	\bigtriangledown 
+	f(x^\ast) + \suml_{i\in I} \la^\ast_i \bigtriangledown g(x^\ast) = 0
+\end{equation}
+Нехай $\la_j=0,j\not\in I$ і за таких припущень можна записати:
+\begin{equation}
+	\suml_{i=1}^m \la_i^\ast g_i(x^\ast) = 0 
+\end{equation}
+Тоді можемо записати:
+\begin{equation}\label{tr:7:30}
+	\la^\ast_0 \bigtriangledown f(x^\ast) + \sumiom \la_i^\ast \bigtriangledown g_i(x^\ast) = 0 
+\end{equation} 
+$\la_0^\ast \neq0$, оскільки, якщо $\la^\ast_0=0$, то
+\begin{equation}
+	\sumiom \la_i^\ast \bigtriangledown g_i(x^\ast) = 0
+\end{equation}
+А я умова протирічить тому, що градієнти лінійнонезалежні.\\
+Поділимо систему \eqref{tr:7:30} на $\la^\ast_0$
+\begin{equation}
+	\bigtriangledown f(x^\ast) + \sumiom \cfrac{\la_i^\ast}{\la_0^\ast} \bigtriangledown g_i(x^\ast) = 0 
+\end{equation}
+\end{proof}
+\subsection{Використання теореми Куно-Таккера}
+Нехай задані наступна задача нелінійного програмування
+\begin{eqnarray}
+&\min f(x)\label{tr:7:7}\\
+&g_i(x) \leq 0,\ifom\label{tr:7:8}\\
+&x\geq 0\label{tr:7:13}
+\end{eqnarray}
+Всі функції випукли догори функції.\\
+Зробимо заміну $x_j = - h_j(x)$. Отримали ще таке обмеження:
+\begin{equation}\label{tr:7:9}
+h_j(x)\leq 0,\jfon
+\end{equation}
+Запишемо для задачі \eqref{tr:7:7},\eqref{tr:7:8},\eqref{tr:7:9} функцію Лагранджа
+\begin{equation}
+L\cb{X,\Lambda,U} = f(x) + \suml_{i=1}^n \la_i g_i(x)+\suml_{j=1}^n u_j h_j(x)
+\end{equation}
+Використаємо теорему Куно-Таккера і записуємо умову оптимальності:
+\begin{eqnarray}
+&\triangledown L\cb{X,\Lambda,U} = \triangledown f(x^\ast) +\suml_{i=1}^m \la_i \triangledown g_i(x^\ast) + \suml_{j=1}^n u_j \triangledown h_j(x^\ast) =0\label{tr:7:10}\\
+&\suml_{i=1}^m \la_i \triangledown g_i(x^\ast) =0 \\
+&\suml_{j=1}^n u_j \triangledown h_j(x^\ast) =0\\
+&\la_i^\ast g_i(x^\ast) = 0\label{tr:7:11} \\
+&u_jx_j^\ast = 0\label{tr:7:12}
+\end{eqnarray}
+Перепишемо умову \eqref{tr:7:10} в наступному вигляді:
+\begin{equation}
+\dd{L\cb{X,\Lambda,U}}{x_j} = \dd f{x_j} + \suml_{i=1}^m \la_i \dd{g_i(x^\ast)}{x_j} - u_j = 0
+\end{equation}
+Перепишемо це ще раз, як бачимо, один аргумент зник:
+\begin{equation}\label{tr:7:14}
+\dd{L\cb{X,\Lambda}}{x_j} = \dd f{x_j} + \suml_{i=1}^m \la_i \dd{g_i(x^\ast)}{x_j} = u_j \geq 0
+\end{equation}
+Також, запишемо обмеження в такій формі:
+\begin{equation}\label{tr:7:15}
+\dd{L\cb{X,\Lambda}}{\la_i} = g_i(x) \leq 0 
+\end{equation}
+Також, з отриманного та формул \eqref{tr:7:11} та \eqref{tr:7:12} отримуємо:
+\begin{eqnarray}
+\dd{L\cb{X,\Lambda}}{x_j} \cdot x_j^\ast &=& 0\label{tr:7:16}\\
+\dd{L\cb{X,\Lambda}}{\la_i} \cdot \la_i^\ast &=&0\label{tr:7:17}
+\end{eqnarray}
+$x^\ast$ оптимальний розв’язок задачі \eqref{tr:7:7}-\eqref{tr:7:13} тоді і тільки тоді, коли $\exists\Lambda^\ast\geq 0$, що виконуються умови \eqref{tr:7:14},\eqref{tr:7:15},\eqref{tr:7:16},\eqref{tr:7:17}, де \eqref{tr:7:16},\eqref{tr:7:17} - умови додаткової нежорсткості.
+Нехай задана наступна задача нелінійного програмування:
+\begin{eqnarray}
+&\max f(x)\label{tr:7:18}\\
+&g_i(x) \geq 0,\ifom\\
+&x \geq 0 \label{tr:7:19}
+\end{eqnarray}
+Всі функції є випуклими донизу.
+\begin{teor}
+$x^\ast$ оптимальний розв’язок задачі \eqref{tr:7:18}-\eqref{tr:7:19} тоді і тільки тоді, коли $\exists \Lambda^\ast\geq0$ такий, що виконуються:
+\begin{eqnarray}
+\dd {L\cb{X^\ast,\Lambda^\ast}}{x_j} &\leq& 0\\
+\dd {L\cb{X^\ast,\Lambda^\ast}}{x_j} x_j^\ast &=& 0\label{tr:7:20}\\
+\dd {L\cb{X^\ast,\Lambda^\ast}}{\la_i} &\geq& 0 \\
+\dd {L\cb{X^\ast,\Lambda^\ast}}{\la_i} \la_i^\ast &=& 0\label{tr:7:21}
+\end{eqnarray}
+Умови \eqref{tr:7:20} та \eqref{tr:7:21} - це умови додаткової нежорсткості.
+\end{teor}
+Нехай задана наступна задача квадратичного програмування:
+\begin{eqnarray}
+&\max \mt{B} x + \cfrac12  \mt{x} C x\label{tr:7:22}\\
+&Ax\leq A_0\\
+&x\geq 0\label{tr:7:23}
+\end{eqnarray}
+Функція \eqref{tr:7:22} випукла донизу
+\begin{teor}
+$x^\ast$ оптимальний розв’язок задачі \eqref{tr:7:22}-\eqref{tr:7:23}, коли $\exists$m-вимірні $\Lambda\geq0,W\geq0$ і такий $n$-мірний $V\geq 0$,що виконуються наступні умови:
+\begin{eqnarray}
+B+Cx +\mt{A}\Lambda + V&=&0\\
+A_0-Ax -W &=&0\\
+\mt{X}V&=&0\label{tr:7:24}\\
+\mt{\Lambda}W&=&0\label{tr:7:25}
+\end{eqnarray}
+Умови \eqref{tr:7:24},\eqref{tr:7:25} - це умови додаткової нежосткості.
+\end{teor}
+\begin{proof}
+Запишемо функцію Лагранджа для задачі \eqref{tr:7:22}-\eqref{tr:7:23}:
+\begin{equation}
+L\cb{X,\Lambda} = \mt{B}x+\cfrac12 \mt{x}Cx + \mt{\Lambda}\cb{A_0-Ax}
+\end{equation}
+\end{proof}

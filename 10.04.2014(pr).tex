@@ -1,0 +1,66 @@
+\section{Практика}\marginpar{\framebox{10.04.2014}}
+\begin{tsk}\label{exs:pr:3}
+\begin{eqnarray}
+\max x_1+x_2\\
+2x_1 + 11x_2 \leq 38 \\
+x_1 + x_2 \leq 7\\
+4x_1 - 5x_2 \leq 5 \\
+x_1,x_2\geq 0\\
+x_1,x_2\in\mZ\\
+d_1^0 = d_2^0 = 0
+\end{eqnarray} 
+Знадемо множину допустимих значень для $x_1$ та $x_2$ з обмежень. Вона має бути найширшою.
+\begin{eqnarray}
+x_1^0 = \set{0,7}\\
+x_2^0 = \set{0,3}
+\end{eqnarray}
+Відсіюємо недопустимі варіанти
+\begin{eqnarray}
+&\omg_1(x_1):&2x_1 > 38 - \min \set{11x_2}\\
+&&x_1 > 7 -\min\set{x_2}\\
+&&4x_1 >5 + \max\set{5x_2}\\
+&&x_1^0 = \set{0,5}\\
+&\omg_1(x_2):&11x_1 > 38 - \min\set{2x_1}\\
+&&x_2>7 - \min\set{x_1} \\
+&&5x_2 > 5 - \min\set{4x_2}\\
+\end{eqnarray}
+Переходимо до відсіву значень за значеннями цільової функції
+\begin{eqnarray}
+&\omg_2:&f_1^\ast = \cfrac12 \cb{\min f(x) +\max f(x)}\\
+&& f_1^\ast = \cfrac12\cdot 8 = 4 \\
+&& x_1 < f_1^\ast - \max\set{x_2}\\
+&& x_1 < 1 \Rightarrow x_1^0 = \set{1,5}\\
+&& x_2 < f_1^\ast - \max\set{x_1}\\
+&& x_2 < -1 
+\end{eqnarray}
+Отже, за $x_2$ немає відсіву і йдемо на процедуру $\omg_1$. Зауважимо те, що змінилася лише нижня границя $x_1$, тому має сенс робити цю процедуру лише для $x_2$.
+\begin{eqnarray}
+&\omg_1(x_2):&x_2 > \cfrac{36}{11} \\
+&& x_2 > 6 \\
+&& x_2 < -\cfrac14 
+\end{eqnarray}
+Відсіву не відбулося. Далі робити відсів немає сенсу. \\
+Переходимо на процедуру $\omg_2$ і вводимо новий поріг відсіву:
+\begin{eqnarray}
+&\omg_2:& f_2^\ast = \cfrac12\cb{f_1^\ast +\max f(x)}  = \cfrac12\cb{4+8} = 6\\
+&& x_1 < 6 - \max\set{x_2} \\
+&& x_1 < 3 \Rightarrow x_1^0 = \set{3,5}\\
+&& x_2 < 6 - \max\set{x_1}\\
+&& x_2 < 1 \Rightarrow x_2^0 = \set{1,3}
+\end{eqnarray}
+Аналогічно попереднім роздумам переходимо до процедури $\omg_1$, враховуючи те, що змінилися обидві множини і лише з нижними границями. Тобто, перевіряємо лише там, де мінімум.
+\begin{eqnarray}
+&\omg_1(x_1):& x_1 > \cfrac{27}2 \\
+&& x_1 > 6 \\
+&\omg_1(x_2):& x_2 > \cfrac{32}{11} \Rightarrow x_2^0 = \set{1,2}\\
+&& x_2 > 4 \\
+&& x_2 < \cfrac75 \Rightarrow x_2^0 = 2
+\end{eqnarray}
+Оскільки множини змінилося, то ми повторюємо процедур $\omg_1$ лише для $x_1$.
+\begin{eqnarray}
+&\omg_1(x_1):& x_1 > 8\\
+&& x_1 > 5\\
+&& x_1 > \cfrac{15}4  \Rightarrow x_1^0 = 3
+\end{eqnarray}
+\end{tsk}
+

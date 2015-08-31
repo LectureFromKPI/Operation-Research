@@ -1,0 +1,130 @@
+\section{Практика} \marginpar{\framebox{22.05.2014}}
+\begin{tsk}
+\begin{eqnarray}
+	&\min \cb{x_1-6}^2 + \cb{x_2-2}^2\\
+	&-x_1 +2x_2 \leq 4\\
+	&3x_1+2x_2 \leq 12\\
+	&-x_1 \leq 0\\
+	&-x_2 \leq 0
+\end{eqnarray}
+Спочатку визначаємо допустиму точку.
+\end{tsk}
+\begin{tsk}
+\begin{eqnarray}
+	&\min 2x_1^2 + 2x^2_2 - 2x_1x_2 - 4x_1 - 6x_2 \\
+	&x_1 + 5 x_2 \leq 5\\
+	&2x_1^2 -x_2 \leq 0\\
+	&-x_1 \leq 0\\
+	&-x_2 \leq 0
+\end{eqnarray}
+Починаємо з точки (0,0)
+\begin{equation}
+	\bigtriangledown f = \cb{4x_1 - 2x_2 -4; 4x_2 - 2x_1 -6}
+\end{equation}
+\begin{eqnarray}
+	&\bigtriangledown f(x') = (-4,-6)\\
+	&\bigtriangledown g_2(x) = (4x_1,-1)\\
+	&\bigtriangledown (x') = \cb{0,-1}
+\end{eqnarray}
+Записуємо нову задачу:
+\begin{eqnarray}
+	&\min z\\
+	&-4s_1 - 6s_2 - z \leq 0\\
+	&-s_2 - z \leq 0 \\
+	&-s_1 - z \leq 0 \\
+	&\mdl{s_{1,2}} \leq 1
+\end{eqnarray}
+Отримали розв’язок $s_1=s_2 = 1,z=-1$.\\
+\begin{equation}
+	\min f(x'+\la s') = 2\la^2 s_1^2 +2\la^2 s_2^2 - 2\la^2 s_1s_2 -4\la -6\la = 2\la^2 -10\la
+\end{equation}
+А з обмеженнями вийшло таке:
+\begin{equation}
+	\la\leq \cfrac56
+\end{equation}
+З другого:
+\begin{equation}
+	2\la^2 - \la\leq 0 \Rightarrow \la\leq\cfrac12 
+\end{equation}
+Нова точка $\la = \cb{\cfrac12,\cfrac12}$
+\end{tsk}
+\subsection{Геометричне програмування}
+\begin{tsk}
+\begin{eqnarray}
+	&\min g_0(t) = 40t_1t_2^{-1\diagup 2} t_3^{-1} + 20t_1t_3 + 20 t_1t_2t_3\\
+	&g_1(t) = \cfrac13 t_1^{-2} t_2^{-2} \cfrac43 t_1^{1\diagup 2} t_3^{-1}\leq 1
+\end{eqnarray}
+Запишемо двоїсту задачу:
+\begin{eqnarray}
+	&\max \cb{\cfrac{40}{\delta_1}}^{\delta_1} \cb{\cfrac{20}{\delta_2}}^{\delta_2}  \cb{\cfrac{20}{\delta_3}}^{\delta_3} \cb{\cfrac{1}{3\delta_4}}^{\delta_4} \cb{\cfrac{4}{3\delta_5}}^{\delta_5} \cb{\delta_4+\delta_4}^{\delta_4+\delta_5}\\
+	&\delta_1+\delta_2+\delta_3 = 1\\
+	&-\delta_1 + \delta_2 + \delta_3 - 2\delta_4 = 0\\
+	&-\cfrac12 \delta_1 + \delta_3 -2\delta_4+\cfrac12 \delta_5 = 0 \\
+	&-\delta_1 +\delta_2 +\delta_3 -\delta_5 = 0 
+\end{eqnarray}
+Обчислимо степінь складності задачі: 
+\begin{equation}
+	d = n - m -1 = 5 - 3 - 1 = 1
+\end{equation}
+Записуємо всі обмеження у табличку:
+\begin{equation*}
+	\begin{array}{|c|c|c|c|c|c|}
+		\hline
+		A_0 & \delta_1 & \delta_2 &\delta_3& \delta_4 &\delta_5 \\
+		\hline
+		1 & 1 & 1 & 1 & 0 & 0 \\
+		0 & -1 & 1 & 1 & -2 & 0\\
+		0 & -\frac12 & 0 & 1 & - 2 & \frac12 \\
+		0 & -1 & 1 & 1 & 0 & -1\\
+		\hline
+	\end{array}
+\end{equation*}
+Приводимо методом Гауса чотири вектора до базисного виду і отримуємо таку таблицю:
+\begin{equation*}
+	\begin{array}{|c|c|c|c|c|c|}
+		\hline
+		A_0 & \delta_1 & \delta_2 &\delta_3& \delta_4 &\delta_5 \\
+		\hline
+		\frac12 & 1 & 0 & 0 & 1 & 0 \\
+		\frac14 & 0 & 1 & 0 & -\frac12 & 0 \\
+		0 & 0 & 0 & 0 & -2 & 1 \\
+		\frac14 & 0 & 0 & 1 & -\frac12 & 0\\
+		\hline
+	\end{array}
+\end{equation*}
+\begin{equation}
+	b^o = \vect{ \frac12 \\ \frac 14 \\ \frac14 \\ 0 \\ 0}
+\end{equation}
+\begin{eqnarray}
+	&\delta_1^\ast = \cfrac12 - r\\
+	&\delta_2^\ast = \cfrac14 + \cfrac12 r \\
+	&\delta_3^\ast = 2 r\\
+	&\delta_4^\ast = r \\
+	&\delta_5^\ast = \cfrac14 + \cfrac12 r
+\end{eqnarray}
+Складаємо максимізуюче рівняння:
+\begin{equation}
+	K_j = \prod S_i(r)^{b_i^{(j)}} \prod \Lambda_k(2)
+\end{equation}
+\begin{equation}
+	K_j = 40^{-1}\cdot 20^{\frac12} \cdot 20^{\frac12} \cdot \cb{\frac13}^{1}\cdot\cb{\cfrac43}^2 = \cfrac8{27}
+\end{equation}
+\begin{equation}
+	\cfrac8{27} = \cb{\frac12 -r}^{-1}\cb{\frac14 + \frac12 r }^{\frac12} \cb{\frac14 + \frac12 r}^{\frac12} \cb{r}^1\cb{2r}^2 \cb{3r}
+\end{equation}
+Отримали дивний результат: $r=0.3$. Тепер обчислимо $\delta_i$:
+\begin{eqnarray*}
+	\delta_1 = 0.2 & \delta_2 = 0.4 \\
+	\delta_3 = 0.4 & \delta_4 = 0.3 \\
+	\delta_5 = 0.6
+\end{eqnarray*}
+Складемо систему рівнянь:
+\begin{eqnarray}
+	&40t_1^{-1}t_2^{-1\diagup 2} t_3^{-1} = 0.2 \cdot 100 = 20 \\
+	&20t_1t_3 = 40\\
+	&20t_1t_2t_3 = 40\\
+	&\frac13 t_1^{-2} t_2^{-2} = \frac13 \\
+	&\frac43 t_2^{1\diagup2} t_3^{-1} = \frac23
+\end{eqnarray}
+На екзамені можна довести до цього місця і кинути.
+\end{tsk}

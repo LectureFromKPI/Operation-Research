@@ -1,0 +1,202 @@
+\section{Метод можливих напрямів} \marginpar{\framebox{17.04.2014}}
+\subsection{Метод можливих напрямів з лінійними обмеженням}
+\begin{eqnarray}
+&\min f(x) \label{tr:8:1}\\
+&A\cdot X \leq B \\
+&H\cdot X=U\label{tr:8:2}
+\end{eqnarray}
+Нехай $x_1$ допустима точка задачі \eqref{tr:8:1}-\eqref{tr:8:2} для якої:
+\begin{equation}
+\system{A_1 x_1 = B_1\\ A_2 x_1< B_2}
+\end{equation}
+$s$ - можливий напрямок в точці $x_1$, якщо виконується умова:
+\begin{eqnarray}
+A_1 S \leq 0 \label{tr:8:3}\\
+H S = 0 \label{tr:8:4}
+\end{eqnarray}
+Вектор $s$ можливий напрямок спуску в точці $x_1$, якщо виконуються умови\eqref{tr:8:3},\eqref{tr:8:4} і при цьому:
+\begin{equation}
+\triangledown \mt{f}\cb{x_1} s < 0
+\end{equation}
+Для того, щоб знайти такий вектор, необхідно мінімізувати $\min \triangledown \mt{f}(x_1)$. Така умова називається \textbf{умовою нормування}. В результаті, отримуємо наступну задачу:
+\begin{eqnarray}
+&\triangledown \mt{f}\cb{X_1} s < 0 \\
+&A_1 S \leq 0 \\
+&H S = 0\\
+&-1 \leq S_j \leq 1
+\end{eqnarray}
+Оптимальний розв’язок даної задачі позначимо як $s_1$. Якщо значення цільової функції дорівнює нулю, то поточна точка оптимальний розв’язок задачі. Тобто, точка Куно-Такера. В іншому випадку все сумно.
+\subsection{Алгоритм}
+\paragraph{Початковий етап} Нехай задана задача \eqref{tr:8:1}-\eqref{tr:8:2}. Шукаємо допустиму точку $x_1$ і йдемо на першу ітерацію.
+Нехай проведено $k-1$ ітерація, знайдена точка $x_k$, для якої 
+\begin{equation*}
+\system{
+A_1 x_k = B_1\\
+A_2 x_k < B_2
+}
+\end{equation*}
+\paragraph{Перший етап} Складаємо та розв’язуємо задачу 
+\begin{eqnarray}
+&\min \triangledown \mt{f} (x_k) s \\
+&A_1 S \leq 0 \\
+&H S = 0 \\
+&-1 \leq s_j \leq 1
+\end{eqnarray}
+І знайшли оптимальний розв’язок $s_k$. Якщо значення функції менше нуля, то $s_k$ можливий напрямок спуску і ми йдемо на другий етап. А в іншому випадку $x_k$ оптимальний розв’язок задачі.
+\paragraph{Другий етап} Складаємо та розв’язуємо наступну задачу 
+\begin{eqnarray}
+&\min f(x_k+\la s_k)\\
+&0\leq \la \leq \la_{\max}
+\end{eqnarray}
+Де права частина у обмеження, це максимальне значення $\la$ при якому точка $x_k+\la s_k$ залишається допустимою. Далі покладемо $x_{k+1} = x_k+\la_k s_k$ і йдемо на наступну ітерацію.
+\begin{exs}
+\begin{eqnarray}
+&\min 2x_1^2 + 2x_2^2 - 2x_1x_2 -4x_1 -6 x_2\\
+&x_1+x_2 \leq 2\\
+&x_1 +5x_2\leq 5\\
+&-x_1 \leq 0\\
+&-x_2 \leq 0
+\end{eqnarray}
+\begin{equation}
+\triangledown f(x) = \vect{4x_1 -2x_2 +4\\ 4x_2-2x_1-6}
+\end{equation}
+\begin{eqnarray}
+&\min -4s_1 - 6s_2 \\
+&-s_1\leq 0\\
+&-s_2 \leq 0\\
+&-1\leq s_1,s_2 \leq 1
+\end{eqnarray}
+$s_1=s_2=1;F=-10$\\
+Ідемо на другий етап:
+\begin{equation}
+\min 2\cb{\la s_1}^2 + 2\cb{\la s_2}^2 -2 \la^2 s_1 s_2 -4\la s_1 - 6 \la s_2 
+\end{equation}
+Спростимо до нормального виду
+\begin{eqnarray}
+&\min 2\la^2 -10\la \\
+&4\la -5 = 0\\
+&\la =2.5
+\end{eqnarray}
+Також є обмеження:
+\begin{equation}
+\system{2\la \leq 2\\ 6\la \leq 5} \Rightarrow \la = \dfrac56
+\end{equation}
+Отже, $\la=\dfrac56$
+\end{exs}
+\subsection{Метод можливих напрямів для задач з нелінійними обмеженнями}
+\begin{eqnarray}
+&\min f(x) \label{tr:8:5}\\
+&g_i(x) \leq 0,\ifom\label{tr:8:6}
+\end{eqnarray}
+Нехай $x$ допустима точка задачі \eqref{tr:8:5}-\eqref{tr:8:6}. Через множину $I = \set{i:g_i(x)=0}$ - множину індексів активних обмежень. Нехай, якщо $f(x)$ і $g_i(x),i\in I$ - диференційовані, а $g_i(x),i\not\in I$ - неперервні. Вектор $s$ можливий напрям спуску в точці $x$, якщо 
+\begin{eqnarray}
+&\triangledown \mt{f}(x) s <0\\
+&\triangledown \mt{g_i} (x) s <0,i\in I
+\end{eqnarray}
+Для того, щоб знайти цей вектор, потрібно $\min\set{\max\set{\triangledown \mt{f}(x)s,\triangledown \mt{g_i} (x) s}}$. Позначимо $\max\set{\triangledown \mt{f}(x)s,\triangledown \mt{g_i} (x) s} = z$. В результаті отримуємо наступну задачу
+\begin{eqnarray}
+&\min z\\
+&\triangledown \mt{f}(x) s - z \leq 0\\
+&\triangledown \mt{g_i}(x)s - z\leq 0,i\in I\\
+&-1\leq s_j \leq 1
+\end{eqnarray}
+Позначимо оптимальний розв’язок данної задачі як $s_0,z_0$. Якщо $z_0=0$, то поточна точка є оптимальним розв’язком.
+\subsubsection*{Алгоритм}
+\paragraph{Початковий етап} Знаходимо допустиму точку і йдемо на першу ітерацію.\\
+Нехай проведена $k-1$ ітерація я знайдена точка $x_k$. Позначимо через $I=\set{i:g_i(x_k)=0}$ - множину індексів активних обмежень. 
+\paragraph{Перший етап} Складаємо та розв’язуємо наступну задачу:
+\begin{eqnarray}
+&\min z\\
+&\triangledown \mt{f}(x) s - z \leq 0\\
+&\triangledown \mt{g_i}(x)s - z\leq 0,i\in I\\
+&-1\leq s_j \leq 1
+\end{eqnarray}
+Оптимальний розв’язок позначили $s_k,z_k$. Якщо $z_k=0$, то $x_k$ оптимальний розв’язок задачі. Інакше йдемо на другий етап
+\paragraph{Другий етап} Складаємо та розв’язуємо наступну задачу 
+\begin{eqnarray}
+&\min f(x_k+\la s_k)\\
+&0\leq \la \leq \la_{\max}
+\end{eqnarray}
+Де права частина у обмеження, це максимальне значення $\la$ при якому точка $x_k+\la s_k$ залишається допустимою. Далі покладемо $x_{k+1} = x_k+\la_k s_k$ і йдемо на наступну ітерацію.
+\begin{exs}
+\begin{eqnarray}
+&\min \cb{x_1-2x_2}^2 + 5\cb{x_1-8}^2\\
+&x_1^2 - 5 x_2 \leq 10\\
+&x_1 + 2x_2 \leq 8
+\end{eqnarray}
+\begin{equation}
+\triangledown f(x) = \vect{2(x_1-2x_2) + 10 \cb{x_1-8}\\ -4\cb{x_-2x_2}}
+\end{equation}
+\begin{equation}
+\triangledown f(x') = \vect{-80\\0}
+\end{equation}
+Складемо задачу:
+\begin{eqnarray}
+&\min z \\
+&-80 s_1 - z \leq 0\\
+&-1 \leq s_1 \leq 1
+\end{eqnarray}
+$s_1 = 1,z=-80$\\
+\begin{eqnarray}
+&\min \set{\cb{\la s_1}^2 + 5 \cb{\la s_1-8}^2}\\
+&2\la + 10\cb{\la - 8}=0\\
+& \la = \dfrac{20}3
+\end{eqnarray}
+Розглянемо обмеження:
+\begin{equation}
+\system{\la^2 \leq 10 \\ \la\leq 8} \Rightarrow \la = \sqrt{10}
+\end{equation}
+Запишемо нову точку:
+\begin{equation}
+x = \vect{\sqrt{10}\\0}
+\end{equation}
+\end{exs}
+\chapter{Геометричне програмування}
+\section{Прості задачі геометричного програмування}
+Прості задачі - задачі без обмежень.
+\begin{eqnarray}
+g(t) = \sumion U_i(t) = \sumion c_i t_1^{a_{i1}} \cdot \ldots\cdot t_m^{a_{im}}\label{tr:8:7}
+\end{eqnarray}
+Для розв’язку таких задач використаємо нерівності о середньому геометричному та середньому арифметичному.\\
+\begin{eqnarray}
+&\cfrac1n \sumion U_i \leq \prod\limits_{i=1}^n U_i^{1/n}\\
+&\cfrac1n \sumion U_i \delta_i \geq \prod\limits_{i=1}^n U_i^{\delta_i}\\
+&\delta_i\geq 0\label{tr:8:8}\\
+&\sumion \delta_i = 1\label{tr:8:9}\\
+&U_i\delta_i = u_i \\
+&u_i(t) = c_it_1^{a_{i1}}\cdot\ldots\cdot t_m^{a_{im}}\\
+&\sumion u_i(t) \geq \prod\limits_{i=1}^n \cb{\cfrac{u_i}{\delta_i}}^{\delta_i} = \prod\limits_{i=1}^n \cb{\cfrac{c_i}{\delta_i}} t_1^{D_1}\ldots t_m^{D_m}\\
+&D_j = \sumion a_{ij} \delta_i\\
+\end{eqnarray}
+Підберемо вагові коефіцієнти таким чином, щоб:
+\begin{equation}\label{tr:8:10}
+\sumion \aij \delta_i = 0
+\end{equation}
+І підставимо:
+\begin{equation}
+g(t) \leq V(\delta)
+\end{equation}
+$\delta_i$ - це змінні, для яких виконуються умови нормалізації, ортогоналізації та невід’ємності, тобто умови \eqref{tr:8:8},\eqref{tr:8:9},\eqref{tr:8:10}
+\begin{teor}
+Нехай $t^*$ точка мінімума функції \eqref{tr:8:7}, тоді існує $\delta^*$ для якої виконуються умови \eqref{tr:8:8},\eqref{tr:8:9},\eqref{tr:8:10} і в цій точці значення двоїстої функції співпадає зі значенням прямої функції $V(\delta^*) = g(t^*)$
+\end{teor}
+\begin{proof}
+\begin{eqnarray}
+&\dd {g(t^\ast)}{t_j} = 0\\
+&\dd {g(t^\ast)}{t_j}\cdot t_j^\ast = \sumion \dd{u_i(t^\ast)}{t_j} \cdot t_j^\ast = \sumion u_i(t^\ast) \aij = 0
+\end{eqnarray}
+Так як $g(t^\ast)\neq0$:
+\begin{eqnarray}
+&\sumion \cfrac{u_(t^\ast)}{g(t^\ast)} \aij = 0\\
+&\cfrac{u_(t^\ast)}{g(t^\ast)} = \delta_i^\ast\\
+&\sumion \delta_i^\ast \aij = 0
+\end{eqnarray}
+Отже, умова ортогональності виконується\\
+Перевіримо умову нормалізації:\\
+\begin{equation}
+\sumion \delta_i^\ast = \sumion \cfrac{u_(t^\ast)}{g(t^\ast)} = 1
+\end{equation}
+\begin{eqnarray}
+g(t^\ast) = \prod\limits_{i=1}^n g(t^\ast)^{\delta_i^\ast} = \prod\limits_{i=1}^n \cb{\cfrac{u_i(t^\ast)}{\delta_i^\ast}}^{\delta_i^\ast} = v(\delta^\ast)
+\end{eqnarray}
+\end{proof}

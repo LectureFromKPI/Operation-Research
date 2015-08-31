@@ -1,0 +1,203 @@
+\chapter{Динамічне програмування}
+\section{Динамічне програмування}\marginpar{\framebox{15.05.2014}}
+\begin{eqnarray}
+&\max \suml_{j=1}^n f_j(x_j)\label{tr:10:1}\\
+& \suml_{j=1}^n \cij \xj \leq b\\
+& x_j\geq 0\in\mZ\label{tr:10:3}
+\end{eqnarray}
+Позначимо через 
+\begin{equation}
+	z^* = \max \set{f_n(x_n) + \max \set{\suml_{j=1}^{n-1} f_i(x_i)}}
+\end{equation}
+Позначимо
+\begin{equation}
+	\max \suml_{j=1}^{n-1} f_j(x_j)
+\end{equation}
+За умови
+\begin{equation}
+	\suml_{j=1}^{n-1} a_j x_j \leq b - a_n x_n
+\end{equation}
+Як $\Lambda_{n-1}\cb{\xi}$
+\begin{equation}\label{tr:10:2}
+	\Lambda_{n-1}\cb{\xi} = \max \set{f_{n-1}(x_{n-1}) + \max \set{\suml_{j=1}^{n-2} f_i(x_i)}}
+\end{equation}
+Позначимо
+\begin{equation}
+	\max \suml_{j=1}^{n-2} f_j(x_j)
+\end{equation}
+За умови
+\begin{equation}
+	\suml_{j=1}^{n-2} a_j x_j \leq \xi - a_{n-1} x_{n-1}
+\end{equation}
+Як $\Lambda_{n-2}\cb{\xi_1},\xi_1 = \xi - a_{n-1} x_{n-1}$
+Підставляємо позначення в систему \eqref{tr:10:2} та отримуємо
+\begin{equation}
+	\Lambda_{n-1}\cb{\xi} = \max\set{f_{n-1}(x_{n-1}) +\Lambda_{n-2} \cb{\xi - a_{n-1}b_{n-1}}}
+\end{equation}
+\subsection{Основне рекуренте співвідношення Белмана}
+\begin{equation}\label{tr:10:4}
+\Lambda_k\cb{\xi} = \max\limits_{x_k \leq [A_k]}\set{f_k(x_k) + \Lambda_{k-1}\cb{\xi-a_kx_k}}
+\end{equation}
+\section{Основні властивості задачі}
+\begin{enumerate}
+	\item Задача має допускати інтерпретацію n-крокового процесу прийняття рішень;
+	\item На кожному кроці має бути задана деяка множина параметр $\xi$ і ця множина від кроку до кроку не змінюється;
+	\item Розв’язок, знайдений на $k$-тому кроці не має впливати на розв’язки попередніх кроків;
+	\item Оптимальна стратегія $k$-того кроку залежить лише від поточного стану $\xi$.
+\end{enumerate}
+Даний підхід дозволяє замінити $n$-вимірну оптимізацію $n$-кроковим процесом прийняття рішень.\\
+Існує дві схеми розв’язку. 
+\begin{itemize}
+	\item Розв’язок в прямому напрямі. Дана схема використовується, якщо заданий кінцевий стан системи;
+	\item Розв’язок в зворотньому напрямі. Ця схема використовується, якщо задані початкові умови процеси.
+\end{itemize}
+В задачі \eqref{tr:10:1}-\eqref{tr:10:3} заданий кінцевий стан системи і цю задачу розв’язуємо у прямому напрямі.
+\paragraph{Перший крок}
+\begin{equation}
+	\Lambda_1\cb{\xi} = \max\limits_{x\leq \bb{\xi/a}} f_1(x_1),\xi = \overline{0,b}
+\end{equation}
+Для кожного $\xi$ визначаємо $\Lambda_1$. На кожному кроці будується таблиця
+\begin{equation*}
+\begin{array}{|c|c|c|}
+	\hline
+	\xi & x_1 & \Lambda\\\hline
+	0 && \\
+	\vdots && \\
+	b && \\\hline
+\end{array}
+\end{equation*}
+\paragraph{Деякий крок}
+Використовуючи співідношення \eqref{tr:10:4} обчислюємо $\Lambda_2,\ldots$
+\paragraph{Останній крок}
+\begin{equation}
+	\xi=b:~\Lambda_n(b) = \max \set{f_n(x_n)+\Lambda_{n-1}\cb{b-a_nx_n}}
+\end{equation}
+З цієї системи визначаємо $x_n^0$. А далі покладемо $\xi^0=b-a_nx_n^0$. І так далі визначаємо $x_{n-1}^0,\ldots,x_1^0$.
+\section{Задача про розподіл трудових ресурсів}
+Постановка задачі:\\
+Планується робота фірми на n періодів. \\
+$m_j$ - оптимальна кількість робітників в j-тий місяць.\\
+$x_j$ - фактична кількість робітників в j-тий місяць.\\
+Відхилення від оптимальної кількості приводить до витрати за такою функцією:
+\begin{equation}
+	g_j(x_j-m_j)
+\end{equation}
+Можна наймати або звільняти співробітників на початку кожного періоду. Затрати на це записуються як
+\begin{equation}
+	f_j(x_j-x_{j-1})
+\end{equation}
+Необхідно визначити таку кількість співробітників, при якій мінімізуються сумарні затрати.
+\begin{equation}
+	\min\cb{\suml_{j=1}^n f_j(x_j-x_{j-1}) + \suml_{j=1}^n g_j \cb{x_j-m_j}}
+\end{equation}
+\subsection{Перший випадок:початкова умова}
+Задана початкова умова $x_0$. Отже, розв’язуємо задачу у зворотньому порядку
+\paragraph{Перший крок}
+Визначаємо $\Lambda_n$:
+\begin{equation}
+	\Lambda_n\cb{\xi} = \min\cb{f_n\cb{x_n-\xi} + g_n\cb{x_n-m_n}},\xi = x_{n-1},\xi=\overline{0,m_{max}}
+\end{equation}
+\paragraph{Наступні кроки}
+\begin{equation}
+	\Lambda_k\cb{\xi} = \min \cb{ f_k\cb{x_k - \xi} + g_k \cb{x_k-m_k} + \Lambda_{k+1} \cb{x_k}}  \xi = x_{k-1},\xi=\overline{0,m_{max}}
+\end{equation}
+За цим співвідношенням визначаємо усі $\Lambda_{n-1},\ldots,\Lambda_2$.
+\paragraph{Останній крок}
+На цьому кроці $\xi=x_0$
+\begin{equation}\label{tr:10:5}
+	\Lambda_1\cb{x_0} = \min \set{f_1\cb{x_1-x_0} + g_1 \cb{x_1-m_1} + \Lambda_2\cb{x_1}}
+\end{equation}
+За формулою \eqref{tr:10:5} визначаємо $x_1^o$. А далі визначаємо $x^o=x_1^o$ і із таблиці попередніх кроків визначаємо $x_2^o,\ldots,x_n^o$
+\subsection{Другий випадок: кінцева умова}
+Розв’язуємо задачу у прямому напрямі
+\paragraph{Перший крок}
+\begin{multline}
+	\Lambda_1\cb{\xi} = \min\set{ f_1\cb{x_1-x_0} + g_1{x_1-m_1} + f_2\cb{\xi-x_1} + g_2 \cb{\xi-m_2} }{}\\{}\\ \xi=x_2,\quad\xi=\overline{0,m_{\max}}
+\end{multline}
+\paragraph{Наступні кроки}
+\begin{multline}
+	\Lambda_k\cb{\xi} = \min\set{ f_{k+1}\cb{\xi-x_k} + g_{k+1}{\xi-m_{k+1}} + \Lambda_{k-1}\cb{x_k}}{}\\{}\\ \xi=x_{k+1},\quad\xi=\overline{0,m_{\max}}
+\end{multline}
+За цим співвідношенням визначаємо $\Lambda_2,\ldots,\Lambda_{n-1}$
+\paragraph{Останній крок}
+На останньому кроці $\xi = m_{n+1}$
+\begin{equation}
+	\Lambda_n\cb{m_{n+1}} = \min\set{ f_{n+1} \cb{m_{n+1} - x_n} + \Lambda_{n-1}\cb{x_n} }
+\end{equation}
+З цього визначаємо $x_n^o$, покладемо $\xi^o=\xi_n^o$ і визначаємо далі $x_{n-1}^o,\ldots,x_1^o$
+\section{Задача керування запасами}
+Основні компоненти:
+\begin{itemize}
+	\item Система постачання. Може бути централізованою та децентралізованою;
+	\item Попит на предмети постачання". Стаціонарний або не станціонарний. Детермінований або випадковий;
+	\item Способи поповнення запасів: моментальна доставка, затримка на фіксований інтервал часу, затримка на випадковий інтервал часу;
+	\item Функції затрат: затрати на поставку, затрати на зберігання і витрати внаслідок можливого дефіциту;
+	\item Обмеження: на максимальну вартість поставки, на максимальний об’єм запасів і на ймовірність дефіциту
+\end{itemize}
+Постановка задачі: планується робота системи постачання на n періодів\\
+$x_j$ - запас, що створюється в $j$-тий період або замовлення $j$-того періоду\\
+$y_j$ - залишок від запасів $j-1$-шого періоду\\
+$d_j$ - попит в $j$-тому періоді\\
+$c_j(x_j)$ - затрати на поставку\\
+$s_j(x_j+y_j-d_j)$ - затрати на зберігання\\
+Необхідно визначити запас, що створюється в кожному періоді або замовлення кожного періоду, за якого мінімізуються сумарні витрати.
+\begin{equation}
+	\min\suml_{j=1}^n c_j\cb{x_j} + \suml_{j=1}^n s_j\cb{x_j+y_j-d_j} = \suml_{j=1}^n f_j\cb{x_j,y_{j+1}}
+\end{equation}
+\begin{equation}\label{tr:10:6}
+	x_j + y_j -d_j = y_{j+1},\quad \jfon
+\end{equation}
+Майже у всіх випадках буде $y_1=y_{n+1} = 0$, а в інших випадках вони будуть відомі. Отже, задачу можна роз’язувати у обох напрямках. Розв’яжемо задачу у прямому напрямі:
+\begin{equation}\label{tr:10:7}
+	\Lambda_k\cb{\xi} = \min\set{ f_k\cb{x_k,\xi} +\Lambda_{k-1}\cb{\xi+d_k-x_k}},\quad\xi = y_{k+1}
+\end{equation}
+За цим співвідношенням визначаємо $\Lambda_{1},\ldots,\Lambda_{n-1}$.\\
+На останньому кроці $\xi = y_{n+1} =0 $\\
+\begin{equation}
+	\Lambda_n\cb{y_{n+1}} = \min \set{ f_n \cb{x_n,y_{n+1} + \Lambda_{n-1}\cb{y_{n+1}+d_n - x_n} }}
+\end{equation}
+За цим співвідношенням визначаємо $x_n^o$ і покладемо $\xi^o = y_{n+1} + d_n - x_n^o$ і визначаємо за ним $x_{n-1}^o,\ldots,x_1^o$.\\
+Зробимо наступні припущення
+\begin{itemize}
+	\item $c_j(x_j)$ - вогнута 
+	\item $s_j(y_{j+1})$ - лінійна функція
+\end{itemize}
+В силу вогнутості мінімум функції $c_j(x_j)$ досягається в одній з крайніх точно допустимої множини розв’язків, яка визначається обмеженням \eqref{tr:10:6}. Так як таких обмежень $n$, то оптимальний розв’язок містить не більше ніж $n$ невідомих, що не дорівнюють нулю.\\
+Тобто
+\begin{equation}
+	x_j^o \cdot y_j^o \Rightarrow\system{x_j^o = 0; y_j^o>0\\ x_j^O, y_j^0=0}
+\end{equation}
+З цього видно, що замовлення не буде, якщо в початку $j$-того періоду мався деякий запас. Тобто, $x_j^0\in\set{0,d_j,d_j+d_{j+1},\ldots}$. Тобто замовлення дорівнює сумі попиту за деяке число періодів.\\
+Отже, у співвідношенні \eqref{tr:10:7} оптимум досягається або за $x_k=0$, або за $x_k = \xi + d_k$. \\
+Звідси отримуємо
+\begin{equation}
+	\Lambda_k\cb{\xi} = \min \begin{matrix}
+	f_k \cb{0,\xi} + \Lambda_{k-1} \cb{\xi+d_k} \\
+	f_k\cb{\xi+d_k,\xi} + \Lambda_{k-1}\cb{0}
+	\end{matrix}
+\end{equation}
+\begin{equation}
+	\Lambda_{k-1}\cb{\xi+d_k} = \min \begin{matrix}
+	f_{k-1} \cb{0,\xi+d_k} + \Lambda_{k-2} \cb{\xi+d_k+d_{k-1}} \\
+	f_k\cb{\xi+d_k+d_{k-1},\xi+d_k} + \Lambda_{k-2}\cb{0}
+	\end{matrix}
+\end{equation}
+Отже, основне рекуренте співвідношення матиме такий вигляд:
+\begin{equation}
+	\Lambda_k\cb{\xi} = \min\limits_{i\leq k} g_k(i)
+\end{equation}
+Де $g_k(i)$ - витрати за $k$ періодів, за умови, що останній раз замовлення було у $i$-тому періоді.
+\begin{equation}
+	g_k(i) = \Lambda_{i-1}\cb{\xi} + f_i\cb{\xi + \suml_{u=i}^k d_u,\xi + \suml_{u=i+1}^k d_u} + \suml_{j=i+1}^k f_j \cb{0;\xi + \suml_{u=j+1}^k d_u}
+\end{equation}
+І останнє, щоб все взагалі стало просто:
+\begin{equation}
+	c_j(x_j) = A_j \delta_j(x_j), \quad\delta_j(x_j) = \system{1,x_j>0\\0,x_j=0}
+\end{equation}
+В результаті отримуємо наступне рекуренте співвідношення
+\begin{equation}
+	\Lambda_k(0) = \min\limits_{i\leq k} g_k(i)
+\end{equation}
+\begin{equation}
+	g_k(i) = \Lambda_{i-1}(0) + A_i + \suml_{j=1}^{k=1} s_j\suml_{u=j+1}^k d_u
+\end{equation}
